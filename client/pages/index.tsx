@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className='container'>
       <Head>
-        <title>Boilerplate App</title>
+        <title>Ideas App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <h1>{data.hello}</h1>

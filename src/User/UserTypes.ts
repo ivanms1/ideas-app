@@ -19,7 +19,7 @@ const UserSchema = gql`
   }
 
   extend type Mutation {
-    createUser(input: UserInput!): User
+    signup(input: UserInput!): User
     login(email: String!, password: String!): User
   }
 `;

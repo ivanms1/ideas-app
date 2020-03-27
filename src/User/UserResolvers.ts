@@ -1,4 +1,5 @@
 import User from './UserModel';
+import bcrypt from 'bcryptjs';
 
 const UserResolvers = {
   Query: {
@@ -10,11 +11,13 @@ const UserResolvers = {
     }
   },
   Mutation: {
-    createUser: async (_, { input }) => {
+    signup: async (_, { input }) => {
       const alreadyUser = await User.findOne({ email: input.email });
       if (alreadyUser) {
         return Error('User already exists');
       }
+      const hashedPassword = await bcrypt.hashSync(input.password, 10);
+      input.password = hashedPassword;
 
       const newUser = await User.create(input);
       return newUser.populate({
@@ -27,7 +30,9 @@ const UserResolvers = {
       if (!userToFind) {
         return Error('User not found');
       }
-      if (password !== userToFind.password) {
+
+      const isMatch = await bcrypt.compare(password, userToFind.password);
+      if (!isMatch) {
         return Error('Wrong Credentials');
       }
 

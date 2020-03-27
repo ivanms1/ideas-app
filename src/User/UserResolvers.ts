@@ -3,7 +3,10 @@ import User from './UserModel';
 const UserResolvers = {
   Query: {
     getUser: async (_, { id }) => {
-      return await User.findById(id).populate('ideas');
+      return await User.findById(id).populate({
+        path: 'ideas',
+        populate: { path: 'submissions.createdBy' }
+      });
     }
   },
   Mutation: {
@@ -14,7 +17,10 @@ const UserResolvers = {
       }
 
       const newUser = await User.create(input);
-      return newUser.populate('ideas');
+      return newUser.populate({
+        path: 'ideas',
+        populate: { path: 'submissions.createdBy' }
+      });
     },
     login: async (_, { email, password }) => {
       const userToFind = await User.findOne({ email });
@@ -25,7 +31,10 @@ const UserResolvers = {
         return Error('Wrong Credentials');
       }
 
-      return userToFind.populate('ideas');
+      return userToFind.populate({
+        path: 'ideas',
+        populate: { path: 'submissions.createdBy' }
+      });
     }
   }
 };

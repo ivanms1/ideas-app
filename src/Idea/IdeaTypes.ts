@@ -7,15 +7,28 @@ const IdeaSchema = gql`
   }
 
   type Idea {
-    _id: ID
-    name: String
-    score: Int
-    createdBy: User
+    _id: ID!
+    name: String!
+    score: Int!
+    createdBy: User!
+    submissions: [Submission]!
+  }
+
+  type Submission {
+    url: String!
+    repo: String!
+    createdBy: User!
   }
 
   input IdeaInput {
     name: String!
     createdBy: ID!
+  }
+
+  input SubmissionInput {
+    url: String
+    repo: String
+    createdBy: String
   }
 
   type Query {
@@ -27,6 +40,7 @@ const IdeaSchema = gql`
     createIdea(input: IdeaInput!): Idea
     deleteIdea(id: ID!): ID
     voteIdea(id: ID!, action: ActionType!): Idea
+    updateSubmissions(id: ID!, submissions: [SubmissionInput]): Idea
   }
 `;
 

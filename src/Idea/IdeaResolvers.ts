@@ -1,4 +1,5 @@
 import Idea from './IdeaModel';
+import User from '../User/UserModel';
 
 const IdeaResolvers = {
   Query: {
@@ -11,7 +12,13 @@ const IdeaResolvers = {
   },
   Mutation: {
     createIdea: async (_, { input }) => {
-      return await Idea.create(input).populate('createdBy');
+      const ideaToCreate = await Idea.create(input);
+
+      await User.findByIdAndUpdate(input.createdBy, {
+        $push: { ideas: ideaToCreate._id }
+      });
+
+      return ideaToCreate.populate('createdBy');
     },
     deleteIdea: async (_, { id }) => {
       if (!id) {

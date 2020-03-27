@@ -8,7 +8,13 @@ const UserResolvers = {
   },
   Mutation: {
     createUser: async (_, { input }) => {
-      return await User.create(input).populate('ideas');
+      const alreadyUser = await User.findOne({ email: input.email });
+      if (alreadyUser) {
+        return Error('User already exists');
+      }
+
+      const newUser = await User.create(input);
+      return newUser.populate('ideas');
     },
     login: async (_, { email, password }) => {
       const userToFind = await User.findOne({ email });

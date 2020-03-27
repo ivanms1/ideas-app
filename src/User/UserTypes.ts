@@ -9,9 +9,9 @@ const UserSchema = gql`
   }
 
   input UserInput {
-    name: String
-    email: String
-    password: String
+    name: String!
+    email: String!
+    password: String!
   }
 
   extend type Query {
@@ -19,8 +19,8 @@ const UserSchema = gql`
   }
 
   extend type Mutation {
-    createUser(input: UserInput): User
-    login(email: String, password: String): User
+    createUser(input: UserInput!): User
+    login(email: String!, password: String!): User
   }
 `;
 

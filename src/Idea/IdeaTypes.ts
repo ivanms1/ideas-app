@@ -14,8 +14,8 @@ const IdeaSchema = gql`
   }
 
   input IdeaInput {
-    name: String
-    createdBy: ID
+    name: String!
+    createdBy: ID!
   }
 
   type Query {
@@ -24,9 +24,9 @@ const IdeaSchema = gql`
   }
 
   type Mutation {
-    createIdea(input: IdeaInput): Idea
-    deleteIdea(id: ID): ID
-    voteIdea(id: ID, action: ActionType): Idea
+    createIdea(input: IdeaInput!): Idea
+    deleteIdea(id: ID!): ID
+    voteIdea(id: ID!, action: ActionType!): Idea
   }
 `;
 

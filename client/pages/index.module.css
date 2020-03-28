@@ -1,0 +1,13 @@
+.Container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10rem 5rem;
+  height: 100vh;
+}
+
+.ActionButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}

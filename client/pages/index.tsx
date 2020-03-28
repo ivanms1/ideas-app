@@ -1,23 +1,35 @@
-import Head from 'next/head';
-import { useQuery } from '@apollo/react-hooks';
+import React from 'react';
+import { useRouter } from 'next/dist/client/router';
+import { Button } from '@blueprintjs/core';
 
-import QUERY_HELLO_WORLD from './queryHello.graphql';
+import styles from './index.module.css';
 
-const Home = () => {
-  const { data, loading } = useQuery(QUERY_HELLO_WORLD);
-
-  if (loading || !data) {
-    return <p>Loading...</p>;
-  }
+const index = () => {
+  const router = useRouter();
   return (
-    <div className='container'>
-      <Head>
-        <title>Ideas App</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <h1>{data.hello}</h1>
+    <div className={styles.Container}>
+      <h1>Welcome To The Ideas App</h1>
+      <div className={styles.ActionButtons}>
+        <Button
+          icon='airplane'
+          type='button'
+          onClick={() => router.push('/signup')}
+          large
+          intent='primary'
+        >
+          Sign Up
+        </Button>
+        <Button
+          icon='log-in'
+          type='button'
+          large
+          onClick={() => router.push('/login')}
+        >
+          Login
+        </Button>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default index;

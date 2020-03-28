@@ -3,6 +3,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import withData from '../utils/apollo-config';
 
+import './styles.css';
+
 const MyApp = ({ Component, pageProps, apollo }) => {
   return (
     <ApolloProvider client={apollo}>

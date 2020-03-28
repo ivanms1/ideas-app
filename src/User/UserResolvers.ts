@@ -20,10 +20,7 @@ const UserResolvers = {
       input.password = hashedPassword;
 
       const newUser = await User.create(input);
-      return newUser.populate({
-        path: 'ideas',
-        populate: { path: 'submissions.createdBy' }
-      });
+      return { status: 'ok', userId: newUser._id };
     },
     login: async (_, { email, password }) => {
       const userToFind = await User.findOne({ email });
@@ -36,10 +33,7 @@ const UserResolvers = {
         return Error('Wrong Credentials');
       }
 
-      return userToFind.populate({
-        path: 'ideas',
-        populate: { path: 'submissions.createdBy' }
-      });
+      return { status: 'ok', userId: userToFind._id };
     }
   }
 };

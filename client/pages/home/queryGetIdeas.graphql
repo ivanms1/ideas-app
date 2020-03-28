@@ -1,0 +1,19 @@
+query GetIdeas {
+  getIdeas {
+    _id
+    name
+    score
+    createdBy {
+      _id
+      name
+    }
+    submissions {
+      url
+      repo
+      createdBy {
+        name
+        _id
+      }
+    }
+  }
+}

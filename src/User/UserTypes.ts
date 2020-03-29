@@ -8,6 +8,11 @@ const UserSchema = gql`
     ideas: [Idea]
   }
 
+  type LoginResponse {
+    status: String!
+    userId: ID!
+  }
+
   input UserInput {
     name: String!
     email: String!
@@ -19,8 +24,8 @@ const UserSchema = gql`
   }
 
   extend type Mutation {
-    signup(input: UserInput!): User
-    login(email: String!, password: String!): User
+    signup(input: UserInput!): LoginResponse
+    login(email: String!, password: String!): LoginResponse
   }
 `;
 

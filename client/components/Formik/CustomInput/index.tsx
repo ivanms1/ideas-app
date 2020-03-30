@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
-import {
-  FormGroup,
-  InputGroup,
-  Checkbox,
-  Button,
-  Intent
-} from '@blueprintjs/core';
+import React from 'react';
+import { FormGroup } from '@blueprintjs/core';
 import { FieldProps } from 'formik';
+
+import Text from '../Text';
+import Checkbox from '../Checkbox';
+import TextArea from '../TextArea';
+
+const inputTypes: any = {
+  text: Text,
+  email: Text,
+  password: Text,
+  checkbox: Checkbox,
+  textarea: TextArea
+};
+
+interface CustomInputProps {
+  form: FieldProps['form'];
+  field: FieldProps['field'];
+  type: string;
+  label: string;
+  helperText: string;
+  labelInfo: string;
+  className: string;
+}
 
 const CustomInput = ({
   form,
@@ -16,30 +32,11 @@ const CustomInput = ({
   labelInfo,
   label,
   className,
-  checkboxLabel,
   ...props
-}: {
-  form: FieldProps['form'];
-  field: FieldProps['field'];
-  type: string;
-  label: string;
-  helperText: string;
-  labelInfo: string;
-  className: string;
-  checkboxLabel: string;
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
+}: CustomInputProps) => {
+  const { touched, errors } = form;
 
-  const { touched, errors, setFieldValue } = form;
-
-  const lockIcon = (
-    <Button
-      icon={showPassword ? 'unlock' : 'lock'}
-      intent={Intent.WARNING}
-      minimal={true}
-      onClick={() => setShowPassword(!showPassword)}
-    />
-  );
+  const Component = inputTypes[type];
 
   return (
     <FormGroup
@@ -54,31 +51,7 @@ const CustomInput = ({
       labelFor={field.name}
       intent={touched[field.name] && errors[field.name] ? 'danger' : 'none'}
     >
-      {type === 'checkbox' ? (
-        <Checkbox
-          checked={field.value}
-          className={className}
-          label={checkboxLabel}
-          onChange={(e: any) => setFieldValue(field.name, e.target.checked)}
-        />
-      ) : type === 'password' ? (
-        <InputGroup
-          type={showPassword ? 'text' : 'password'}
-          value={field.value}
-          rightElement={lockIcon}
-          id={field.name}
-          onChange={(e: any) => setFieldValue(field.name, e.target.value)}
-          {...props}
-        />
-      ) : (
-        <InputGroup
-          type={type}
-          value={field.value}
-          id={field.name}
-          onChange={(e: any) => setFieldValue(field.name, e.target.value)}
-          {...props}
-        />
-      )}
+      <Component form={form} field={field} type={type} {...props} />
     </FormGroup>
   );
 };

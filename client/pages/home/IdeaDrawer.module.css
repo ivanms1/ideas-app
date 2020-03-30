@@ -1,0 +1,9 @@
+.Form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.CreateButton {
+  align-self: flex-end;
+}

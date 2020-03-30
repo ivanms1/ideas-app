@@ -1,5 +1,5 @@
 query GetIdeas {
-  getIdeas {
+  ideas: getIdeas {
     _id
     name
     score

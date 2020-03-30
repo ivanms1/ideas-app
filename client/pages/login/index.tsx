@@ -1,10 +1,12 @@
 import React from 'react';
 import { useRouter } from 'next/dist/client/router';
+import * as yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, Form, Field } from 'formik';
 import { Button } from '@blueprintjs/core';
 
 import CustomInput from '../../components/Formik/CustomInput';
+import { AppToast } from '../../components/Toaster';
 
 import MUTATION_LOGIN from './mutationLogin.graphql';
 
@@ -21,6 +23,13 @@ const Login = () => {
           email: '',
           password: ''
         }}
+        validationSchema={yup.object().shape({
+          email: yup
+            .string()
+            .email('this is not a valid email')
+            .required('email is required'),
+          password: yup.string().required('password is required')
+        })}
         onSubmit={async ({ email, password }) => {
           try {
             const res = await login({
@@ -34,7 +43,7 @@ const Login = () => {
               router.push(`/home/${res.data.login.userId}`);
             }
           } catch (error) {
-            console.log(error);
+            AppToast.show({ message: 'an error ocurred', intent: 'danger' });
           }
         }}
       >

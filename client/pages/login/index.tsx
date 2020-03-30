@@ -43,7 +43,7 @@ const Login = () => {
               router.push(`/home/${res.data.login.userId}`);
             }
           } catch (error) {
-            AppToast.show({ message: 'an error ocurred', intent: 'danger' });
+            AppToast?.show({ message: 'an error ocurred', intent: 'danger' });
           }
         }}
       >

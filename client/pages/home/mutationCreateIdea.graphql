@@ -1,0 +1,14 @@
+mutation CreateIdea($input: IdeaInput!) {
+  createIdea(input: $input) {
+    _id
+    name
+    summary
+    score
+    createdBy {
+      _id
+    }
+    submissions {
+      url
+    }
+  }
+}

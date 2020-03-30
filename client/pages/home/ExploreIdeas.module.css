@@ -1,0 +1,23 @@
+.Title {
+  margin-bottom: 1rem;
+}
+
+.Ideas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.Idea {
+  display: flex;
+  flex-direction: column;
+}
+
+.Heart {
+  align-self: flex-end;
+}
+
+.notLiked > svg {
+  stroke: #646464;
+  stroke-width: 1px;
+  width: 20px;
+}

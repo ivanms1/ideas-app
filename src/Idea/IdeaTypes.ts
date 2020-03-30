@@ -9,6 +9,7 @@ const IdeaSchema = gql`
   type Idea {
     _id: ID!
     name: String!
+    summary: String!
     score: Int!
     createdBy: User!
     submissions: [Submission]!
@@ -22,6 +23,7 @@ const IdeaSchema = gql`
 
   input IdeaInput {
     name: String!
+    summary: String!
     createdBy: ID!
   }
 

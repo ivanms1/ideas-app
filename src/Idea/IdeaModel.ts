@@ -4,6 +4,7 @@ export interface IIdea extends Document {
   name: string;
   score: number;
   createdBy: string;
+  summary: string;
 }
 
 const SubmissionSchema: Schema = new Schema({
@@ -24,6 +25,7 @@ const IdeaSchema: Schema = new Schema({
     type: String,
     required: true
   },
+  summary: { type: String, required: true },
   score: {
     type: Number,
     default: 0

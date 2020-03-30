@@ -2,7 +2,6 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface IIdea extends Document {
   name: string;
-  score: number;
   createdBy: string;
   summary: string;
 }
@@ -26,10 +25,13 @@ const IdeaSchema: Schema = new Schema({
     required: true
   },
   summary: { type: String, required: true },
-  score: {
-    type: Number,
-    default: 0
-  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true
+    }
+  ],
   submissions: {
     type: [SubmissionSchema],
     default: []

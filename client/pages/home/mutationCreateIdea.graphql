@@ -3,7 +3,9 @@ mutation CreateIdea($input: IdeaInput!) {
     _id
     name
     summary
-    score
+    likes {
+      _id
+    }
     createdBy {
       _id
     }

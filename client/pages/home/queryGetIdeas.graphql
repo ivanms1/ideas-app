@@ -2,7 +2,9 @@ query GetIdeas {
   ideas: getIdeas {
     _id
     name
-    score
+    likes {
+      _id
+    }
     createdBy {
       _id
       name

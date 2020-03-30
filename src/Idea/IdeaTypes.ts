@@ -10,7 +10,7 @@ const IdeaSchema = gql`
     _id: ID!
     name: String!
     summary: String!
-    score: Int!
+    likes: [User]!
     createdBy: User!
     submissions: [Submission]!
   }
@@ -41,7 +41,7 @@ const IdeaSchema = gql`
   type Mutation {
     createIdea(input: IdeaInput!): Idea
     deleteIdea(id: ID!): ID
-    voteIdea(id: ID!, action: ActionType!): Idea
+    voteIdea(id: ID!, action: ActionType!, userId: ID!): Idea
     updateSubmissions(id: ID!, submissions: [SubmissionInput]): Idea
   }
 `;

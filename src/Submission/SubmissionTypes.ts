@@ -4,6 +4,7 @@ const SubmissionSchema = gql`
   type Submission {
     _id: ID!
     idea: Idea!
+    url: String!
     repo: String!
     likes: [User]!
     createdBy: User!

@@ -8,7 +8,7 @@ import { Card, Elevation, Icon, Intent } from '@blueprintjs/core';
 import QUERY_GET_IDEAS from './queryGetIdeas.graphql';
 import MUTATION_LIKE_IDEA from './mutationLikeIdea.graphql';
 
-import styles from './ExploreIdeas.module.css';
+import styles from './Ideas.module.css';
 
 const didUserLike = (likes: any, userId: any) => {
   return likes.some((like: any) => like._id == userId);
@@ -26,7 +26,6 @@ const ExploreIdeas = () => {
 
   return (
     <div>
-      <h3 className={styles.Title}>Explore Some Projects Ideas</h3>
       <div className={styles.Ideas}>
         {data.ideas.map((idea: any) => (
           <Card
@@ -40,7 +39,7 @@ const ExploreIdeas = () => {
             <div className={styles.LikesContainer}>
               <Icon
                 className={classNames(styles.Heart, {
-                  [styles.notLiked]: !didUserLike(idea.likes, userId)
+                  [styles.notLiked]: !didUserLike(idea.likes, userId),
                 })}
                 icon='heart'
                 color={didUserLike(idea.likes, userId) ? 'red' : 'white'}
@@ -51,8 +50,8 @@ const ExploreIdeas = () => {
                       action: didUserLike(idea.likes, userId)
                         ? 'DISLIKE'
                         : 'LIKE',
-                      userId
-                    }
+                      userId,
+                    },
                   })
                 }
               />

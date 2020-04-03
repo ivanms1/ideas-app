@@ -8,7 +8,9 @@ import styles from './home.module.css';
 import IdeaDrawer from './IdeaDrawer';
 
 const Home = () => {
-  const [selectedTab, setSelectedTab] = useState<number | string>('your-ideas');
+  const [selectedTab, setSelectedTab] = useState<number | string>(
+    'explore-ideas'
+  );
   const [isIdeasDrawerOpen, setIsIdeasDrawerOpen] = useState(false);
   return (
     <div className={styles.Container}>
@@ -29,16 +31,15 @@ const Home = () => {
         id='tabs'
         className={styles.TabContainer}
         selectedTabId={selectedTab}
-        onChange={tab => setSelectedTab(tab)}
+        onChange={(tab) => setSelectedTab(tab)}
         large
       >
-        <Tab id='your-ideas' title='Your Ideas' panel={<OwnIdeas />} />
         <Tab
           id='explore-ideas'
           title='Explore Ideas'
           panel={<ExploreIdeas />}
-          panelClassName='ember-panel'
         />
+        <Tab id='your-ideas' title='Your Ideas' panel={<OwnIdeas />} />
       </Tabs>
       <IdeaDrawer
         isOpen={isIdeasDrawerOpen}

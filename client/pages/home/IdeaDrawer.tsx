@@ -1,4 +1,5 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Drawer, Button } from '@blueprintjs/core';
 import { useRouter } from 'next/dist/client/router';
 import { Formik, Form, Field } from 'formik';
@@ -32,24 +33,40 @@ const IdeaDrawer = ({ isOpen, onClose, idea }: IdeaDrawerProps) => {
     >
       <Formik
         initialValues={{ name: idea?.name || '', summary: idea?.summary || '' }}
-        onSubmit={async values => {
+        onSubmit={async (values) => {
           try {
             await createIdea({
               variables: {
                 input: {
                   ...values,
-                  createdBy: router.query.id
-                }
-              }
+                  createdBy: router.query.id,
+                },
+              },
             });
             onClose();
           } catch (error) {
             AppToast?.show({
               message: 'an error ocurred, please try again',
-              intent: 'danger'
+              intent: 'danger',
             });
           }
         }}
+        validationSchema={yup.object().shape({
+          name: yup
+            .string()
+            .test('is-too-long', 'Name is too long', (value) =>
+              value ? value.split(' ').length < 8 : true
+            )
+            .required('A name is required'),
+          summary: yup
+            .string()
+            .test(
+              'is-too-long',
+              'Summary should be less than 20 words',
+              (value) => (value ? value.split(' ').length < 20 : true)
+            )
+            .required('A summary is required'),
+        })}
       >
         {() => (
           <Form className={styles.Form}>

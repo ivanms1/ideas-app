@@ -6,19 +6,6 @@ export interface IIdea extends Document {
   summary: string;
 }
 
-const SubmissionSchema: Schema = new Schema({
-  url: {
-    type: String,
-    required: true
-  },
-  repo: { type: String, required: true },
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
-  }
-});
-
 const IdeaSchema: Schema = new Schema({
   name: {
     type: String,
@@ -32,10 +19,12 @@ const IdeaSchema: Schema = new Schema({
       required: true
     }
   ],
-  submissions: {
-    type: [SubmissionSchema],
-    default: []
-  },
+  submissions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'submission'
+    }
+  ],
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'user',

@@ -17,10 +17,10 @@ const IdeaResolvers = {
     }
   },
   Mutation: {
-    createIdea: async (_, { input }) => {
+    createIdea: async (_, { input, userId }) => {
       const ideaToCreate = await Idea.create(input);
 
-      await User.findByIdAndUpdate(input.createdBy, {
+      await User.findByIdAndUpdate(userId, {
         $push: { ideas: ideaToCreate._id }
       });
 
@@ -29,30 +29,25 @@ const IdeaResolvers = {
         .populate('likes')
         .populate('submissions.createdBy');
     },
-    deleteIdea: async (_, { id }) => {
+    deleteIdea: async (_, { id, userId }) => {
       if (!id) {
         return Error('No id Provided');
       }
       await Idea.findByIdAndDelete(id);
+      await User.findByIdAndUpdate(userId, { $pull: { ideas: id } });
       return id;
     },
-    voteIdea: async (_, { id, action, userId }) => {
-      if ((action !== 'UPVOTE' && action !== 'DOWNVOTE') || !id) {
+    likeIdea: async (_, { id, action, userId }) => {
+      if ((action !== 'LIKE' && action !== 'DISLIKE') || !id) {
         return Error('Invalid Information');
       }
-      if (action === 'UPVOTE') {
+      if (action === 'LIKE') {
         return await Idea.findByIdAndUpdate(id, { $push: { likes: userId } })
           .populate('createdBy')
           .populate('likes')
           .populate('submissions.createdBy');
       }
       return await Idea.findByIdAndUpdate(id, { $pull: { likes: userId } })
-        .populate('createdBy')
-        .populate('likes')
-        .populate('submissions.createdBy');
-    },
-    updateSubmissions: async (_, { id, submissions }) => {
-      return await Idea.findByIdAndUpdate(id, { $set: { submissions } })
         .populate('createdBy')
         .populate('likes')
         .populate('submissions.createdBy');

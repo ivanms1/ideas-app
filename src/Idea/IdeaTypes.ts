@@ -2,8 +2,8 @@ import { gql } from 'apollo-server-express';
 
 const IdeaSchema = gql`
   enum ActionType {
-    UPVOTE
-    DOWNVOTE
+    LIKE
+    DISLIKE
   }
 
   type Idea {
@@ -15,22 +15,10 @@ const IdeaSchema = gql`
     submissions: [Submission]!
   }
 
-  type Submission {
-    url: String!
-    repo: String!
-    createdBy: User!
-  }
-
   input IdeaInput {
     name: String!
     summary: String!
     createdBy: ID!
-  }
-
-  input SubmissionInput {
-    url: String
-    repo: String
-    createdBy: String
   }
 
   type Query {
@@ -41,8 +29,7 @@ const IdeaSchema = gql`
   type Mutation {
     createIdea(input: IdeaInput!): Idea
     deleteIdea(id: ID!): ID
-    voteIdea(id: ID!, action: ActionType!, userId: ID!): Idea
-    updateSubmissions(id: ID!, submissions: [SubmissionInput]): Idea
+    likeIdea(id: ID!, action: ActionType!, userId: ID!): Idea
   }
 `;
 

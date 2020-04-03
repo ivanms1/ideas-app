@@ -1,0 +1,16 @@
+mutation LikeIdea($id: ID!, $action: ActionType!, $userId: ID!) {
+  likeIdea(id: $id, action: $action, userId: $userId) {
+    _id
+    name
+    summary
+    likes {
+      _id
+    }
+    createdBy {
+      _id
+    }
+    submissions {
+      url
+    }
+  }
+}

@@ -1,0 +1,22 @@
+query GetMyIdeas($userId: ID!) {
+  ideas: getMyIdeas(userId: $userId) {
+    _id
+    name
+    likes {
+      _id
+    }
+    createdBy {
+      _id
+      name
+    }
+    summary
+    submissions {
+      url
+      repo
+      createdBy {
+        name
+        _id
+      }
+    }
+  }
+}

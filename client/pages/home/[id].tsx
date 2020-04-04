@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Tab, Tabs } from '@blueprintjs/core';
 
 import ExploreIdeas from './ExploreIdeas';
-import OwnIdeas from './OwnIdeas';
+import MyIdeas from './MyIdeas';
 
 import styles from './home.module.css';
 import IdeaDrawer from './IdeaDrawer';
@@ -39,7 +39,7 @@ const Home = () => {
           title='Explore Ideas'
           panel={<ExploreIdeas />}
         />
-        <Tab id='your-ideas' title='Your Ideas' panel={<OwnIdeas />} />
+        <Tab id='your-ideas' title='My Ideas' panel={<MyIdeas />} />
       </Tabs>
       <IdeaDrawer
         isOpen={isIdeasDrawerOpen}

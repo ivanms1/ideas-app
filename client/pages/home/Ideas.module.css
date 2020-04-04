@@ -1,5 +1,7 @@
-.Title {
-  margin-bottom: 1rem;
+.IdeasContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Ideas {

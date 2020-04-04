@@ -23,7 +23,8 @@ const IdeaSchema = gql`
 
   type Query {
     getIdeas: [Idea]
-    getIdea(id: ID): Idea
+    getIdea(id: ID!): Idea
+    getMyIdeas(userId: ID!): [Idea]
   }
 
   type Mutation {

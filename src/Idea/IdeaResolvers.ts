@@ -14,14 +14,17 @@ const IdeaResolvers = {
         .populate('createdBy')
         .populate('likes')
         .populate('submissions.createdBy');
-    }
+    },
+    getMyIdeas: async (_, { userId }) => {
+      return await Idea.find({ createdBy: userId });
+    },
   },
   Mutation: {
     createIdea: async (_, { input, userId }) => {
       const ideaToCreate = await Idea.create(input);
 
       await User.findByIdAndUpdate(userId, {
-        $push: { ideas: ideaToCreate._id }
+        $push: { ideas: ideaToCreate._id },
       });
 
       return ideaToCreate
@@ -51,8 +54,8 @@ const IdeaResolvers = {
         .populate('createdBy')
         .populate('likes')
         .populate('submissions.createdBy');
-    }
-  }
+    },
+  },
 };
 
 export default IdeaResolvers;

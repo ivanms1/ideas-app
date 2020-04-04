@@ -29,38 +29,42 @@ const IdeasGrid = ({ ideas }: IdeasGridProps) => {
   const userId = router.query.id;
   return (
     <div className={styles.Ideas}>
-      {ideas.map((idea) => (
-        <Card
-          className={styles.Idea}
-          key={idea._id}
-          interactive
-          elevation={Elevation.TWO}
-        >
-          <h3>{idea.name}</h3>
-          <p>{idea.summary}</p>
-          <div className={styles.LikesContainer}>
-            <Icon
-              className={classNames(styles.Heart, {
-                [styles.notLiked]: !didUserLike(idea.likes, userId),
-              })}
-              icon='heart'
-              color={didUserLike(idea.likes, userId) ? 'red' : 'white'}
-              onClick={async () =>
-                await likeIdea({
-                  variables: {
-                    id: idea._id,
-                    action: didUserLike(idea.likes, userId)
-                      ? 'DISLIKE'
-                      : 'LIKE',
-                    userId,
-                  },
-                })
-              }
-            />
-            <span>{idea.likes.length}</span>
-          </div>
-        </Card>
-      ))}
+      {ideas.length > 0 ? (
+        ideas.map((idea) => (
+          <Card
+            className={styles.Idea}
+            key={idea._id}
+            interactive
+            elevation={Elevation.TWO}
+          >
+            <h3>{idea.name}</h3>
+            <p>{idea.summary}</p>
+            <div className={styles.LikesContainer}>
+              <Icon
+                className={classNames(styles.Heart, {
+                  [styles.notLiked]: !didUserLike(idea.likes, userId),
+                })}
+                icon='heart'
+                color={didUserLike(idea.likes, userId) ? 'red' : 'white'}
+                onClick={async () =>
+                  await likeIdea({
+                    variables: {
+                      id: idea._id,
+                      action: didUserLike(idea.likes, userId)
+                        ? 'DISLIKE'
+                        : 'LIKE',
+                      userId,
+                    },
+                  })
+                }
+              />
+              <span>{idea.likes.length}</span>
+            </div>
+          </Card>
+        ))
+      ) : (
+        <p>No Ideas yet :/</p>
+      )}
     </div>
   );
 };

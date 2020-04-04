@@ -26,18 +26,18 @@ const Signup = () => {
             .string()
             .email('this is not a valid email')
             .required('Email is required'),
-          password: yup.string().required('Password is required')
+          password: yup.string().required('Password is required'),
         })}
-        onSubmit={async values => {
+        onSubmit={async (values) => {
           try {
             const res = await signup({
               variables: {
-                input: values
-              }
+                input: values,
+              },
             });
 
-            if (res.data.status === 'ok' && res.data.userId) {
-              router.push(`home/${res.data.userId}`);
+            if (res.data.signup.status === 'ok' && res.data.signup.userId) {
+              router.push(`/home/${res.data.signup.userId}`);
             }
           } catch (error) {
             AppToast?.show({ message: 'an error ocurred', intent: 'danger' });

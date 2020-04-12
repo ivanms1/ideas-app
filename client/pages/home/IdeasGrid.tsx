@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useRouter } from 'next/dist/client/router';
 
 import MUTATION_LIKE_IDEA from './mutationLikeIdea.graphql';
+import QUERY_GET_IDEAS from './queryGetIdeas.graphql';
 
 import styles from './Ideas.module.css';
 
@@ -24,7 +25,22 @@ interface IdeasGridProps {
 
 const IdeasGrid = ({ ideas }: IdeasGridProps) => {
   const router = useRouter();
-  const [likeIdea] = useMutation(MUTATION_LIKE_IDEA);
+  const [likeIdea] = useMutation(MUTATION_LIKE_IDEA, {
+    update: (cache, { data: likeIdea }) => {
+      const data: any = cache.readQuery({
+        query: QUERY_GET_IDEAS,
+      });
+
+      cache.writeQuery({
+        query: QUERY_GET_IDEAS,
+        data: {
+          ideas: data.ideas.map((idea: any) =>
+            idea._id === likeIdea._id ? likeIdea : idea
+          ),
+        },
+      });
+    },
+  });
 
   const userId = router.query.id;
   return (

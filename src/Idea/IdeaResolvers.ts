@@ -45,12 +45,20 @@ const IdeaResolvers = {
         return Error('Invalid Information');
       }
       if (action === 'LIKE') {
-        return await Idea.findByIdAndUpdate(id, { $push: { likes: userId } })
+        return await Idea.findByIdAndUpdate(
+          id,
+          { $push: { likes: userId } },
+          { new: true }
+        )
           .populate('createdBy')
           .populate('likes')
           .populate('submissions.createdBy');
       }
-      return await Idea.findByIdAndUpdate(id, { $pull: { likes: userId } })
+      return await Idea.findByIdAndUpdate(
+        id,
+        { $pull: { likes: userId } },
+        { new: true }
+      )
         .populate('createdBy')
         .populate('likes')
         .populate('submissions.createdBy');

@@ -7,6 +7,7 @@ import { Formik, Form, Field } from 'formik';
 import CustomInput from '../../components/Formik/CustomInput';
 
 import MUTATION_CREATE_IDEA from './mutationCreateIdea.graphql';
+import QUERY_GET_IDEAS from './queryGetIdeas.graphql';
 
 import styles from './IdeaDrawer.module.css';
 import { useMutation } from '@apollo/react-hooks';
@@ -23,7 +24,20 @@ interface IdeaDrawerProps {
 
 const IdeaDrawer = ({ isOpen, onClose, idea }: IdeaDrawerProps) => {
   const router = useRouter();
-  const [createIdea, { loading }] = useMutation(MUTATION_CREATE_IDEA);
+  const [createIdea, { loading }] = useMutation(MUTATION_CREATE_IDEA, {
+    update: (cache, { data: createIdea }) => {
+      const data: any = cache.readQuery({
+        query: QUERY_GET_IDEAS,
+      });
+
+      cache.writeQuery({
+        query: QUERY_GET_IDEAS,
+        data: {
+          ideas: [...data.ideas, createIdea.createIdea],
+        },
+      });
+    },
+  });
   return (
     <Drawer
       isOpen={isOpen}

@@ -1,0 +1,31 @@
+.CardContainer {
+  position: relative;
+}
+
+.Idea {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  min-height: 150px;
+}
+
+.LikesContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  right: 5%;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.Heart {
+  align-self: flex-end;
+}
+
+.notLiked > svg {
+  stroke: #646464;
+  stroke-width: 1px;
+  width: 20px;
+}

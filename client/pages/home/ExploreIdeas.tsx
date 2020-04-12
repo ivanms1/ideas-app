@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Spinner } from '@blueprintjs/core';
 
-import IdeasGrid from './IdeasGrid';
+import IdeasGrid from '../../components/IdeasGrid';
 
 import QUERY_GET_IDEAS from './queryGetIdeas.graphql';
 

@@ -16,7 +16,10 @@ const IdeaResolvers = {
         .populate('submissions.createdBy');
     },
     getMyIdeas: async (_, { userId }) => {
-      return await Idea.find({ createdBy: userId });
+      return await Idea.find({ createdBy: userId })
+        .populate('createdBy')
+        .populate('likes')
+        .populate('submissions.createdBy');
     },
   },
   Mutation: {

@@ -21,22 +21,22 @@ const Login = () => {
       <Formik
         initialValues={{
           email: '',
-          password: ''
+          password: '',
         }}
         validationSchema={yup.object().shape({
           email: yup
             .string()
             .email('this is not a valid email')
             .required('email is required'),
-          password: yup.string().required('password is required')
+          password: yup.string().required('password is required'),
         })}
         onSubmit={async ({ email, password }) => {
           try {
             const res = await login({
               variables: {
                 email,
-                password
-              }
+                password,
+              },
             });
 
             if (res.data && res.data.login.status === 'ok') {
@@ -48,25 +48,33 @@ const Login = () => {
         }}
       >
         {() => (
-          <Form>
+          <Form className={styles.Form}>
             <Field
               name='email'
               type='email'
+              large
               component={CustomInput}
               placeholder='Email'
             />
             <Field
               name='password'
               type='password'
+              large
               component={CustomInput}
               placeholder='Password'
             />
-            <Button type='submit' fill intent='primary' loading={loading}>
+            <Button type='submit' fill large intent='primary' loading={loading}>
               Login
             </Button>
           </Form>
         )}
       </Formik>
+      <div>
+        <span>Don't have an account?</span>
+        <Button minimal intent='primary' onClick={() => router.push('/signup')}>
+          Signup
+        </Button>
+      </div>
     </div>
   );
 };

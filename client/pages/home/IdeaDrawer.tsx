@@ -42,7 +42,7 @@ const IdeaDrawer = ({ isOpen, onClose, idea }: IdeaDrawerProps) => {
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      size={Drawer.SIZE_SMALL}
+      // size={Drawer.SIZE_SMALL}
       title={idea || 'Create an Idea'}
     >
       <Formik
@@ -88,11 +88,13 @@ const IdeaDrawer = ({ isOpen, onClose, idea }: IdeaDrawerProps) => {
               name='name'
               component={CustomInput}
               label='Name'
+              large
               helperText='The name of your Idea'
             />
             <Field
               name='summary'
               component={CustomInput}
+              large
               type='textarea'
               label='Summary'
               helperText='Brief description of your idea'

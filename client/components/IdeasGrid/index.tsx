@@ -11,6 +11,10 @@ interface IdeasGridProps {
     name: string;
     summary: string;
     likes: { _id: string }[];
+    createdBy: {
+      _id: string;
+      name: string;
+    };
   }[];
 }
 

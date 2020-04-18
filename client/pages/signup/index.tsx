@@ -45,26 +45,39 @@ const Signup = () => {
         }}
       >
         {() => (
-          <Form>
-            <Field name='name' placeholder='Name' component={CustomInput} />
+          <Form className={styles.Form}>
+            <Field
+              name='name'
+              placeholder='Name'
+              large
+              component={CustomInput}
+            />
             <Field
               name='email'
               type='email'
               placeholder='Email'
+              large
               component={CustomInput}
             />
             <Field
               name='password'
               type='password'
               placeholder='Password'
+              large
               component={CustomInput}
             />
-            <Button fill intent='primary' type='submit' loading={loading}>
+            <Button large fill intent='primary' type='submit' loading={loading}>
               Sign up
             </Button>
           </Form>
         )}
       </Formik>
+      <div>
+        <span>Already have an account?</span>{' '}
+        <Button minimal intent='primary' onClick={() => router.push('/login')}>
+          Login
+        </Button>
+      </div>
     </div>
   );
 };

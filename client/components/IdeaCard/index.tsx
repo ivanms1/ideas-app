@@ -16,6 +16,10 @@ interface IdeaCardProps {
     name: string;
     summary: string;
     likes: { _id: string }[];
+    createdBy: {
+      _id: string;
+      name: string;
+    };
   };
 
   userId: string | string[];

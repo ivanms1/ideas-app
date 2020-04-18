@@ -9,9 +9,13 @@ import 'dotenv/config';
 const uri = process.env.DATABASE_URI;
 
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log('Connected to database'))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
